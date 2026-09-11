@@ -333,5 +333,21 @@ public class StudentAttendanceService {
 		// 完了メッセージ
 		return messageUtil.getMessage(Constants.PROP_KEY_ATTENDANCE_UPDATE_NOTICE);
 	}
-
+	/**
+	*@param ImsUser Id
+	*@param trainingDate
+	*@param deletellg
+	*@rereturn 未入力件数
+	*/
+	public boolean notEnterCheck(Integer ImsUserId) {
+		
+	Date trainingData = new Date();
+		
+	Integer count = tStudentAttendanceMapper.notEnterCount(
+			
+	ImsUserId, trainingData, (short) 0);
+	
+	return count > 0;
+	
+ }
 }

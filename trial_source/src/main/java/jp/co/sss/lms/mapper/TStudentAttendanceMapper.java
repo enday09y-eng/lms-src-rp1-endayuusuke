@@ -64,5 +64,24 @@ public interface TStudentAttendanceMapper {
 	 * @return 更新結果
 	 */
 	Boolean update(TStudentAttendance tStudentAttendance);
+	
+	
+	/**
+	 * 勤怠情報（受講生入力）更新
+	 * @param ImsUser Id
+	 * @param deleterlg
+	 * @param trainingDate
+	 * ereturn 未入力件数
+	 */
+	Integer getUnenteredCount(
+			
+		@Param("ImsUser Id") Integer ImsUserId,
+		 @Param("trainingDate") Date trainingDate,
+		@Param("deleteFlg") Short deleteFlg);
+
+	Integer notEnterCount(Integer imsUserId, Date trainingData, short s);
+
+	
+	
 
 }
