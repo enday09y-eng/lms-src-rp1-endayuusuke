@@ -334,20 +334,18 @@ public class StudentAttendanceService {
 		return messageUtil.getMessage(Constants.PROP_KEY_ATTENDANCE_UPDATE_NOTICE);
 	}
 	/**
-	*@param ImsUser Id
-	*@param trainingDate
-	*@param deletellg
-	*@rereturn 未入力件数
-	*/
-	public boolean notEnterCheck(Integer ImsUserId) {
-		
-	Date trainingData = new Date();
-		
-	Integer count = tStudentAttendanceMapper.notEnterCount(
-			
-	ImsUserId, trainingData, (short) 0);
-	
-	return count > 0;
-	
+	 *
+	 * @param imsUserId    ユーザーID
+	 * @param trainingDate 研修日
+	 * @param deleteFlg    削除フラグ 
+	 * @return 未入力件数が1件以上ある場合は true、ない場合は false
+	 */
+	public boolean notEnterCheck(Integer imsUserId, Date trainingDate, short deleteFlg) {
+	    
+	    Integer count = tStudentAttendanceMapper.notEnterCount(imsUserId, trainingDate, deleteFlg);
+	    
+	    return count != null && count > 0;
+	}
+
  }
-}
+
