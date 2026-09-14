@@ -72,6 +72,16 @@ public class StudentAttendanceService {
 
 		return attendanceManagementDtoList;
 	}
+	/**
+	 * 過去日の勤怠未入力チェック
+	 * 
+	 * @return 未入力がある場合true
+	 */
+	public boolean notEnterCheck() {
+		Integer count = tStudentAttendanceMapper.notEnterCount(loginUserDto.getCourseId(),
+				loginUserDto.getLmsUserId(), Constants.DB_FLG_FALSE);
+		return count != null && count > 0;
+	}
 
 	/**
 	 * 出退勤更新前のチェック
@@ -333,19 +343,6 @@ public class StudentAttendanceService {
 		// 完了メッセージ
 		return messageUtil.getMessage(Constants.PROP_KEY_ATTENDANCE_UPDATE_NOTICE);
 	}
-	/**
-	 *
-	 * @param imsUserId    ユーザーID
-	 * @param trainingDate 研修日
-	 * @param deleteFlg    削除フラグ 
-	 * @return 未入力件数が1件以上ある場合は true、ない場合は false
-	 */
-	public boolean notEnterCheck(Integer imsUserId, Date trainingDate, short deleteFlg) {
-	    
-	    Integer count = tStudentAttendanceMapper.notEnterCount(imsUserId, trainingDate, deleteFlg);
-	    
-	    return count != null && count > 0;
-	}
-
+	
  }
 

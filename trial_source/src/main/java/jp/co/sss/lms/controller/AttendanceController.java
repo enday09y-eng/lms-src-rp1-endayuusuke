@@ -42,13 +42,18 @@ public class AttendanceController {
 	@RequestMapping(path = "/detail", method = RequestMethod.GET)
 	public String index(Model model) {
 
-		// 勤怠一覧の取得
+		/* 勤怠一覧の取得
 		List<AttendanceManagementDto> attendanceManagementDtoList = studentAttendanceService
 				.getAttendanceManagement(loginUserDto.getCourseId(), loginUserDto.getLmsUserId());
 		model.addAttribute("attendanceManagementDtoList", attendanceManagementDtoList);
 
+		return "attendance/detail";*/
+		setDetailAttributes(model);
 		return "attendance/detail";
 	}
+
+	
+	
 
 	/**
 	 * 勤怠管理画面 『出勤』ボタン押下
@@ -67,11 +72,11 @@ public class AttendanceController {
 			String message = studentAttendanceService.setPunchIn();
 			model.addAttribute("message", message);
 		}
-		// 一覧の再取得
+		/* 一覧の再取得
 		List<AttendanceManagementDto> attendanceManagementDtoList = studentAttendanceService
 				.getAttendanceManagement(loginUserDto.getCourseId(), loginUserDto.getLmsUserId());
-		model.addAttribute("attendanceManagementDtoList", attendanceManagementDtoList);
-
+		model.addAttribute("attendanceManagementDtoList", attendanceManagementDtoList);*/
+		setDetailAttributes(model);
 		return "attendance/detail";
 	}
 
@@ -137,11 +142,22 @@ public class AttendanceController {
 		String message = studentAttendanceService.update(attendanceForm);
 		model.addAttribute("message", message);
 		// 一覧の再取得
+		setDetailAttributes(model);
+
+		return "attendance/detail";
+	}
+
+	/**
+	 * 勤怠管理画面の一覧と過去日未入力フラグを設定
+	 * 
+	 * @param model
+	 */
+	private void setDetailAttributes(Model model) {
 		List<AttendanceManagementDto> attendanceManagementDtoList = studentAttendanceService
 				.getAttendanceManagement(loginUserDto.getCourseId(), loginUserDto.getLmsUserId());
 		model.addAttribute("attendanceManagementDtoList", attendanceManagementDtoList);
 
-		return "attendance/detail";
+		model.addAttribute("notEnterFlg", studentAttendanceService.notEnterCheck());
 	}
 
 }
